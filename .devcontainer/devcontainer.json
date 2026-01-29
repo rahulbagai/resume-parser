@@ -11,5 +11,5 @@
 		}
 	},
 
-	"postCreateCommand": "pip install --upgrade pip && pip install -e '.[dev]' && python -m spacy download en_core_web_sm"
+	"postCreateCommand": "pip install --upgrade pip && pip install -e '.[dev]' && python -m spacy download en_core_web_sm && pip install pre-commit && pre-commit install"
 }

@@ -1,0 +1,25 @@
+# Pre-commit hooks configuration
+# Install: pip install pre-commit && pre-commit install
+
+repos:
+  - repo: local
+    hooks:
+      - id: version-bump-check
+        name: Check version bump for resume_parser changes
+        entry: bash
+        language: system
+        pass_filenames: false
+        stages: [commit]
+        args:
+          - -c
+          - |
+            if git diff --cached --name-only | grep -q "^resume_parser/"; then
+              STAGED_VERSION=$(git show :pyproject.toml | grep -oP 'version = "\K[^"]+');
+              HEAD_VERSION=$(git show HEAD:pyproject.toml 2>/dev/null | grep -oP 'version = "\K[^"]+' || echo "0.0.0");
+              if [ "$STAGED_VERSION" = "$HEAD_VERSION" ]; then
+                echo "❌ ERROR: You modified resume_parser/ but forgot to bump version in pyproject.toml";
+                echo "Current version: $HEAD_VERSION";
+                exit 1;
+              fi;
+              echo "✅ Version bumped: $HEAD_VERSION → $STAGED_VERSION";
+            fi
