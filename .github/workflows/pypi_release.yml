@@ -138,8 +138,8 @@ jobs:
       - name: Generate changelog
         id: changelog
         run: |
-          # Get current version from pyproject.toml
-          VERSION=$(grep -oP 'version = "\K[^"]+' pyproject.toml)
+          # Get current version from pyproject.toml (from [project] section only)
+          VERSION=$(grep -A 20 '^\[project\]' pyproject.toml | grep -oP '^version = "\K[^"]+' | head -n 1)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           
           # Create release notes
