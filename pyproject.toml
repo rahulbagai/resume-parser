@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rb-resume-parser"
-version = "0.1.5"
+version = "0.1.6"
 description = "Extract structured information from PDF resumes using NLP and pattern matching"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
-    {name = "Rahul Bagai", email = "rahul.bagai2006@gmail.com"}
+    {name = "Rahul Bagai", email = "rahulbagai@ieee.org"}
 ]
 keywords = ["resume", "parser", "pdf", "nlp", "cv", "extraction"]
 classifiers = [
