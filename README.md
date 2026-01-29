@@ -1,9 +1,9 @@
 # Resume Parser
 
-[![Python Version](https://img.shields.io/pypi/pyversions/rb-resume-parser?style=flat-square)](https://pypi.org/project/rb-resume-parser/)
-[![PyPI Version](https://img.shields.io/pypi/v/rb-resume-parser?style=flat-square)](https://pypi.org/project/rb-resume-parser/)
-[![License](https://img.shields.io/pypi/l/rb-resume-parser?style=flat-square)](https://github.com/rahulbagai/resume-parser/blob/main/LICENSE)
-[![Downloads](https://img.shields.io/pypi/dm/rb-resume-parser?style=flat-square)](https://pypi.org/project/rb-resume-parser/)
+![Python Version](https://img.shields.io/pypi/pyversions/rb-resume-parser)
+![PyPI Version](https://img.shields.io/pypi/v/rb-resume-parser)
+![License](https://img.shields.io/pypi/l/rb-resume-parser)
+![Downloads](https://img.shields.io/pypi/dm/rb-resume-parser)
 
 ![resume](https://img.shields.io/badge/-resume-blue) ![parser](https://img.shields.io/badge/-parser-blue) ![pdf](https://img.shields.io/badge/-pdf-blue) ![nlp](https://img.shields.io/badge/-nlp-blue) ![cv](https://img.shields.io/badge/-cv-blue)
 
