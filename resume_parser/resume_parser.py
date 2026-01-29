@@ -6,6 +6,7 @@ import sys
 import pymupdf as fitz
 import spacy
 
+# Resume parser with NLP-powered extraction
 logger = logging.getLogger(__name__)
 
 
