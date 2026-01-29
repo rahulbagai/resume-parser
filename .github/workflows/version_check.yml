@@ -1,0 +1,63 @@
+name: Version Check
+
+on:
+  pull_request:
+    paths:
+      - 'resume_parser/**'
+      - 'pyproject.toml'
+
+jobs:
+  check-version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if version was bumped
+        run: |
+          # Get the base branch (usually main)
+          git fetch origin ${{ github.base_ref }}
+          BASE_BRANCH="origin/${{ github.base_ref }}"
+          
+          # Check if resume_parser has changes
+          PARSER_CHANGES=$(git diff --name-only $BASE_BRANCH...HEAD | grep "^resume_parser/" || echo "")
+          
+          if [ -n "$PARSER_CHANGES" ]; then
+            echo "📦 Changes detected in resume_parser/"
+            echo "$PARSER_CHANGES"
+            echo ""
+            
+            # Get version from current branch
+            CURRENT_VERSION=$(grep -oP 'version = "\K[^"]+' pyproject.toml)
+            
+            # Get version from base branch
+            git show $BASE_BRANCH:pyproject.toml > /tmp/base_pyproject.toml
+            BASE_VERSION=$(grep -oP 'version = "\K[^"]+' /tmp/base_pyproject.toml)
+            
+            echo "Base version: $BASE_VERSION"
+            echo "Current version: $CURRENT_VERSION"
+            
+            if [ "$CURRENT_VERSION" = "$BASE_VERSION" ]; then
+              echo ""
+              echo "❌ ERROR: Version not bumped!"
+              echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+              echo "You modified files in resume_parser/ but didn't bump the version."
+              echo ""
+              echo "Please update the version in pyproject.toml:"
+              echo "  Current: $BASE_VERSION"
+              echo "  Suggested: $(echo $BASE_VERSION | awk -F. '{$NF+=1; print $1"."$2"."$NF}')"
+              echo ""
+              echo "Version bumping guidelines:"
+              echo "  • Patch (0.1.1 → 0.1.2): Bug fixes"
+              echo "  • Minor (0.1.1 → 0.2.0): New features"
+              echo "  • Major (0.1.1 → 1.0.0): Breaking changes"
+              echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+              exit 1
+            else
+              echo ""
+              echo "✅ Version bumped: $BASE_VERSION → $CURRENT_VERSION"
+            fi
+          else
+            echo "ℹ️  No changes in resume_parser/, version check skipped"
+          fi
