@@ -15,13 +15,6 @@ Extract structured information from PDF resumes using NLP and pattern matching
 pip install rb-resume-parser
 ```
 
-
-**Post-Install:**
-```bash
-Note: This package requires the spaCy English model.
-Run: python -m spacy download en_core_web_sm
-```
-
 ## 🚀 Quick Start
 
 ### Basic Usage
